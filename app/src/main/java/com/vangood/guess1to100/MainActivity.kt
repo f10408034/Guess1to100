@@ -4,43 +4,46 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.vangood.guess1to100.databinding.ActivityMainBinding
-import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
-    val SecretNum = SecretNumber()
+    val SecretNumber = SecretNumber()
     lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
+        println("Please enter a number between ${SecretNumber.min} to ${SecretNumber.max} ")
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        binding.tvMin.text = "1"
+        binding.tvMax.text = "100"
     }
 
     fun main(){
-        println("Please enter a number between ${SecretNum.min} to ${SecretNum.max} ")
+//        println("Please enter a number between ${SecretNum.min} to ${SecretNum.max} ")
     }
 
     fun guess(view:View){
-        SecretNum.num = binding.edNum.text.toString().toInt()
-        println(SecretNum.count)
-        if (SecretNum.count <= SecretNum.limit) {
-            SecretNum.count++
-            if (SecretNum.num > SecretNum.secret) {
-                SecretNum.max = SecretNum.num
-                binding.tvMax.text = SecretNum.max.toString()
-                println("Please enter a number between ${SecretNum.min} to ${SecretNum.max} ")
+        SecretNumber.num = binding.edNum.text.toString().toInt()
+//        println(SecretNum.count)
+//        println(SecretNum.secret)
+        if (SecretNumber.count <= SecretNumber.limit) {
+            SecretNumber.count++
+            if (SecretNumber.num > SecretNumber.secret) {
+                SecretNumber.max = SecretNumber.num
+                binding.tvMax.text = SecretNumber.max.toString()
+                SecretNumber.check()
             } else {
-                if (SecretNum.num < SecretNum.secret) {
-                    SecretNum.min = SecretNum.num
-                    binding.tvMin.text = SecretNum.min.toString()
-                    println("Please enter a number between ${SecretNum.min} to ${SecretNum.max} ")
+                if (SecretNumber.num < SecretNumber.secret) {
+                    SecretNumber.min = SecretNumber.num
+                    binding.tvMin.text = SecretNumber.min.toString()
+                    SecretNumber.check()
                 } else {
-                    println("You got it, the secret number is ${SecretNum.num}")
+                    println("You got it, the secret number is ${SecretNumber.num}")
                 }
             }
         } else {
-            println("Exceeded times, hahaha loser!! ")
+            SecretNumber.check()
         }
+
     }
 
 }

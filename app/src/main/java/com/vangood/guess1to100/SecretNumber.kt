@@ -5,6 +5,14 @@ class SecretNumber{
     var max = 100
     var min = 1
     val limit = 5
-    var count = 0
+    var count = 1
     var num = 0
+
+    fun check(){
+        if (count <= limit){
+            println("Please enter a number between ${min} to ${max} ")
+        } else {
+            println("Exceeded times, hahaha loser!!")
+        }
+    }
 }
